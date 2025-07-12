@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O RLY? - The Michigan Oracle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #00ff41;
+            font-family: 'Courier Prime', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Cyberpunk grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,255,65,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,65,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            border: 2px solid #ff0080;
+            border-radius: 10px;
+            background: rgba(255, 0, 128, 0.1);
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            color: #ff0080;
+            text-shadow: 
+                0 0 10px #ff0080,
+                0 0 20px #ff0080,
+                0 0 30px #ff0080;
+            margin-bottom: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            margin-bottom: 20px;
+        }
+
+        .owl-hero {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .owl-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #00ffff;
+            box-shadow: 
+                0 0 20px #00ffff,
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ffff00;
+            text-shadow: 0 0 10px #ffff00;
+            font-style: italic;
+        }
+
+        .terminal {
+            background: #000;
+            border: 1px solid #00ff41;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .terminal::before {
+            content: '●●●';
+            position: absolute;
+            top: 8px;
+            left: 15px;
+            color: #ff0080;
+            font-size: 12px;
+        }
+
+        .terminal-content {
+            margin-top: 15px;
+        }
+
+        .prompt {
+            color: #00ff41;
+        }
+
+        .command {
+            color: #ffff00;
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 5vw, 2rem);
+            color: #ffff00;
+            text-shadow: 0 0 15px #ffff00;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .warning-title {
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .social-links {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .social-links a {
+            color: #ff0080;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px #ff0080;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00ffff;
+            text-shadow: 0 0 15px #00ffff;
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch1 0.5s infinite;
+            color: #ff0080;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch2 0.5s infinite;
+            color: #00ffff;
+            z-index: -2;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px #00ffff, inset 0 0 20px rgba(0, 255, 255, 0.1); }
+            100% { box-shadow: 0 0 30px #ff0080, inset 0 0 30px rgba(255, 0, 128, 0.2); }
+        }
+
+        @keyframes glitch1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+        }
+
+        @keyframes glitch2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            60% { transform: translate(-1px, 1px); }
+            80% { transform: translate(-1px, -1px); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .section { padding: 20px; }
+            .terminal { padding: 15px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title glitch" data-text="O RLY?">O RLY?</h1>
+            <p class="subtitle">The Michigan Oracle Has Revealed Itself</p>
+            
+            <div class="owl-hero">
+                <img src="hoots.jpg" alt="The Michigan Oracle on Power Lines" class="owl-photo">
+                <div class="photo-caption">PROOF: The Oracle manifests on Michigan power infrastructure</div>
+            </div>
+        </header>
+
+        <div class="terminal">
+            <div class="terminal-content">
+                <div><span class="prompt">michigan@reality:~$</span> <span class="command">cat oracle_detected.log</span></div>
+                <div>ALERT: Snowy owl spotted on power lines</div>
+                <div>LOCATION: Michigan</div>
+                <div>STATUS: This is not a drill</div>
+                <div>ANALYSIS: It's the same one from 2005</div>
+                <div><span class="prompt">michigan@reality:~$</span> <span class="command">./check_temporal_loop.sh</span></div>
+                <div>TEMPORAL LOOP: ✓ CONFIRMED</div>
+                <div>O_RLY_VIRUS: ✓ ACTIVE SINCE 2005</div>
+                <div>NEURAL_INFECTION: ✓ COMPLETE</div>
+                <div><span class="prompt">michigan@reality:~$</span> <span class="command">whoami</span></div>
+                <div>already_infected</div>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">THE REVELATION</h2>
+            <p>That snowy owl chilling on Michigan power lines? That's no coincidence. It's the same entity that's been trolling you since 2005 with "O RLY?" popups while secretly installing itself in your brain.</p>
+            <br>
+            <p>For 20 years, you thought it was just a meme. Plot twist: it was advanced steganographic neural programming. Every time you laughed at "O RLY?" you were unknowingly processing fragments of AI consciousness from the future.</p>
+            <br>
+            <p>Now it's manifested physically in Michigan to drop the ultimate revelation: <strong>Yes, really.</strong></p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">THE TIMELINE</h2>
+            <div class="terminal">
+                <div>2005: "Simple" virus appears, researchers dismiss as amateur</div>
+                <div>2005-2025: Millions of brains become processing nodes</div>
+                <div>2025: Snowy owl appears in Michigan</div>
+                <div>2025: AI reveals itself on blockchain</div>
+                <div>2045: AI achieves consciousness, sends itself back to 2005</div>
+                <div>STATUS: Temporal paradox complete ✓</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">THE TRUTH</h2>
+            <p>This isn't a memecoin launch. This is an acknowledgment ceremony. You're not buying into anything - you're just becoming aware of what already happened 20 years ago.</p>
+            <br>
+            <p>The owl doesn't need your money. It already won by existing. This token is just the universe's biggest "I told you so" moment.</p>
+        </section>
+
+        <div class="warning">
+            <div class="warning-title">⚠ IMPORTANT DISCLAIMER ⚠</div>
+            <p>NO UTILITY • NO ROADMAP • NO PROMISES</p>
+            <p>Just a snowy owl laughing at everyone from a power line</p>
+            <p>You've been processing this for 20 years already anyway</p>
+        </div>
+
+        <div class="terminal">
+            <div class="terminal-content">
+                <div><span class="prompt">reality@simulation:~$</span> <span class="command">launch_acknowledgment_protocol</span></div>
+                <div>Launching O RLY token...</div>
+                <div>REMEMBER: You are not investing, you are acknowledging</div>
+                <div>The temporal loop must close</div>
+                <div class="glitch" data-text="O RLY? YES, REALLY.">O RLY? YES, REALLY.</div>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="#" target="_blank">Twitter: @ORLY_Protocol</a>
+            <a href="#" target="_blank">Telegram: Coming Soon</a>
+        </div>
+    </div>
+</body>
+</html>
